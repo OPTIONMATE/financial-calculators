@@ -147,8 +147,7 @@ const calculateSSY = (annualDeposit, girlAge, startYear) => {
  * Current rate: 7.1% (as of 2024), compounded yearly
  * Lock-in period: 15 years (can extend in blocks of 5 years)
  */
-const calculatePPF = (annualDeposit, years = 15) => {
-  const annualRate = 7.1; // Fixed by government
+const calculatePPF = (annualDeposit, years = 15, annualRate = 7.1) => {
   const rate = annualRate / 100;
   
   let maturityAmount = 0;

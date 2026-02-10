@@ -290,10 +290,21 @@ export const CALCULATORS = [
         placeholder: '15',
         defaultValue: 15,
         min: 15,
-        max: 50,
         step: 5,
         suffix: 'Yr',
         helpText: 'Minimum 15 years, extendable by 5 years'
+      },
+      {
+        name: 'interestRate',
+        label: 'Rate of interest',
+        type: 'number',
+        placeholder: '7.1',
+        defaultValue: 7.1,
+        min: 0,
+        max: 15,
+        step: 0.1,
+        suffix: '%',
+        helpText: 'Government-notified rate (p.a)'
       }
     ],
     resultFields: [
@@ -1510,7 +1521,7 @@ export const CALCULATORS = [
         label: 'Tax slab',
         type: 'select',
         defaultValue: 12,
-        options: [0, 5, 12, 18, 28],
+        options: [0, 0.25, 3, 5, 12, 18, 28],
         suffix: '%',
         helpText: 'Select applicable GST rate'
       },
