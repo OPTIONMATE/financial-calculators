@@ -20,7 +20,6 @@ export const CALCULATORS = [
         placeholder: '25000',
         defaultValue: 25000,
         min: 500,
-        max: 10000000,
         step: 500,
         prefix: '₹',
         helpText: 'Amount you invest every month'
@@ -44,7 +43,6 @@ export const CALCULATORS = [
         placeholder: '10',
         defaultValue: 10,
         min: 3,
-        max: 50,
         step: 1,
         suffix: 'Yr'
       }

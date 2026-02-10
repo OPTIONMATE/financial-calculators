@@ -9,7 +9,7 @@
  * where M = Maturity amount, P = Monthly investment, i = Monthly rate, n = Total months
  */
 const calculateSIP = (monthlyInvestment, annualRate, years) => {
-  const monthlyRate = (annualRate / 100) / 12;
+  const monthlyRate = Math.pow(1 + annualRate / 100, 1 / 12) - 1;
   const months = years * 12;
   
   // Total investment
