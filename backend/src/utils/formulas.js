@@ -111,20 +111,14 @@ const calculateSSY = (annualDeposit, girlAge, startYear) => {
   const monthlyDeposit = annualDeposit / 12;
 
   let balance = 0;
-  let accruedInterest = 0;
 
-  // Accrue interest monthly and credit yearly to mirror scheme behavior
+  // Apply monthly compound interest
   for (let month = 0; month < maturityMonths; month++) {
     if (month < depositMonths) {
       balance += monthlyDeposit;
     }
-
-    accruedInterest += balance * monthlyRate;
-
-    if ((month + 1) % 12 === 0) {
-      balance += Math.round(accruedInterest);
-      accruedInterest = 0;
-    }
+    // Apply compound interest monthly
+    balance = balance * (1 + monthlyRate);
   }
 
   const maturityAmount = balance;
