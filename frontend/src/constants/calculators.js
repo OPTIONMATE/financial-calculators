@@ -12,6 +12,7 @@ export const CALCULATORS = [
     icon: '📈',
     color: 'bg-blue-500',
     category: 'Investment',
+    renderMode: 'slider', // Use sliders for interactive experience
     fields: [
       {
         name: 'monthlyInvestment',
@@ -62,6 +63,7 @@ export const CALCULATORS = [
     icon: '💰',
     color: 'bg-green-500',
     category: 'Investment',
+    renderMode: 'slider', // Use sliders for interactive experience
     fields: [
       {
         name: 'principal',
@@ -111,6 +113,7 @@ export const CALCULATORS = [
     icon: '💸',
     color: 'bg-purple-500',
     category: 'Investment',
+    renderMode: 'slider', // Use sliders for interactive experience
     fields: [
       {
         name: 'initialInvestment',
@@ -173,6 +176,7 @@ export const CALCULATORS = [
     icon: '📊',
     color: 'bg-orange-500',
     category: 'Investment',
+    renderMode: 'slider',
     fields: [
       {
         name: 'principal',
@@ -222,6 +226,7 @@ export const CALCULATORS = [
     icon: '👧',
     color: 'bg-pink-500',
     category: 'Government Schemes',
+    renderMode: 'slider',
     fields: [
       {
         name: 'annualDeposit',
@@ -272,6 +277,7 @@ export const CALCULATORS = [
     icon: '🏦',
     color: 'bg-indigo-500',
     category: 'Government Schemes',
+    renderMode: 'slider',
     fields: [
       {
         name: 'annualDeposit',
@@ -313,6 +319,7 @@ export const CALCULATORS = [
     icon: '👔',
     color: 'bg-teal-500',
     category: 'Retirement',
+    renderMode: 'slider',
     fields: [
       {
         name: 'basicSalary',
@@ -385,6 +392,7 @@ export const CALCULATORS = [
     icon: '🏛️',
     color: 'bg-cyan-500',
     category: 'Retirement',
+    renderMode: 'slider',
     fields: [
       {
         name: 'monthlyInvestment',
@@ -437,6 +445,7 @@ export const CALCULATORS = [
     icon: '🎯',
     color: 'bg-violet-500',
     category: 'Retirement',
+    renderMode: 'slider',
     fields: [
       {
         name: 'currentAge',
@@ -473,6 +482,7 @@ export const CALCULATORS = [
     icon: '🌴',
     color: 'bg-emerald-500',
     category: 'Retirement',
+    renderMode: 'slider',
     fields: [
       {
         name: 'currentAge',
@@ -549,6 +559,7 @@ export const CALCULATORS = [
     icon: '📊',
     color: 'bg-rose-500',
     category: 'Investment',
+    renderMode: 'slider',
     fields: [
       {
         name: 'initialMonthlyInvestment',
@@ -609,6 +620,7 @@ export const CALCULATORS = [
     icon: '📈',
     color: 'bg-lime-500',
     category: 'Investment',
+    renderMode: 'slider',
     fields: [
       {
         name: 'initialValue',
@@ -656,6 +668,7 @@ export const CALCULATORS = [
     icon: '💵',
     color: 'bg-blue-600',
     category: 'Deposits',
+    renderMode: 'slider',
     fields: [
       {
         name: 'principal',
@@ -704,6 +717,7 @@ export const CALCULATORS = [
     icon: '📅',
     color: 'bg-green-600',
     category: 'Deposits',
+    renderMode: 'slider',
     fields: [
       {
         name: 'monthlyDeposit',
@@ -752,6 +766,7 @@ export const CALCULATORS = [
     icon: '📜',
     color: 'bg-yellow-600',
     category: 'Government Schemes',
+    renderMode: 'slider',
     fields: [
       {
         name: 'principal',
@@ -801,6 +816,7 @@ export const CALCULATORS = [
     icon: '📮',
     color: 'bg-red-600',
     category: 'Government Schemes',
+    renderMode: 'slider', 
     fields: [
       {
         name: 'principal',
@@ -828,6 +844,7 @@ export const CALCULATORS = [
     icon: '👴',
     color: 'bg-amber-600',
     category: 'Government Schemes',
+    renderMode: 'slider',
     fields: [
       {
         name: 'principal',
@@ -879,6 +896,7 @@ export const CALCULATORS = [
     icon: '💳',
     color: 'bg-red-500',
     category: 'Loans',
+    renderMode: 'slider',
     fields: [
       {
         name: 'principal',
