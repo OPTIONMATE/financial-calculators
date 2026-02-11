@@ -7,14 +7,14 @@ const validationRules = {
   // SIP Calculator validation
   sip: [
     body('monthlyInvestment')
-      .isFloat({ min: 500, max: 10000000 })
-      .withMessage('Monthly investment must be between ₹500 and ₹1,00,00,000'),
+      .isFloat({ min: 500 })
+      .withMessage('Monthly investment must be at least ₹500'),
     body('annualRate')
       .isFloat({ min: 0.1, max: 50 })
       .withMessage('Annual return rate must be between 0.1% and 50%'),
     body('years')
-      .isInt({ min: 3, max: 50 })
-      .withMessage('Investment period must be between 3 and 50 years')
+      .isInt({ min: 3 })
+      .withMessage('Investment period must be at least 3 years')
   ],
 
   // Lumpsum Calculator validation
@@ -79,8 +79,12 @@ const validationRules = {
       .withMessage('Annual deposit must be between ₹500 and ₹1,50,000'),
     body('years')
       .optional()
-      .isInt({ min: 15, max: 50 })
-      .withMessage('Investment period must be between 15 and 50 years (in multiples of 5 after 15)')
+      .isInt({ min: 15 })
+      .withMessage('Investment period must be at least 15 years (in multiples of 5 after 15)'),
+    body('interestRate')
+      .optional()
+      .isFloat({ min: 0, max: 15 })
+      .withMessage('Interest rate must be between 0% and 15%')
   ],
 
   // EPF Calculator validation
@@ -426,8 +430,8 @@ const validationRules = {
       .isFloat({ min: 1, max: 100000000 })
       .withMessage('Amount must be between ₹1 and ₹10,00,00,000'),
     body('gstRate')
-      .isIn([0, 5, 12, 18, 28])
-      .withMessage('GST rate must be 0%, 5%, 12%, 18%, or 28%'),
+      .isIn([0, 0.25, 3, 5, 12, 18, 28])
+      .withMessage('GST rate must be 0%, 0.25%, 3%, 5%, 12%, 18%, or 28%'),
     body('isInclusive')
       .optional()
       .isBoolean()

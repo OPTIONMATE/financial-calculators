@@ -9,7 +9,7 @@
  * where M = Maturity amount, P = Monthly investment, i = Monthly rate, n = Total months
  */
 const calculateSIP = (monthlyInvestment, annualRate, years) => {
-  const monthlyRate = (annualRate / 100) / 12;
+  const monthlyRate = Math.pow(1 + annualRate / 100, 1 / 12) - 1;
   const months = years * 12;
   
   // Total investment
@@ -141,8 +141,7 @@ const calculateSSY = (annualDeposit, girlAge, startYear) => {
  * Current rate: 7.1% (as of 2024), compounded yearly
  * Lock-in period: 15 years (can extend in blocks of 5 years)
  */
-const calculatePPF = (annualDeposit, years = 15) => {
-  const annualRate = 7.1; // Fixed by government
+const calculatePPF = (annualDeposit, years = 15, annualRate = 7.1) => {
   const rate = annualRate / 100;
   
   let maturityAmount = 0;

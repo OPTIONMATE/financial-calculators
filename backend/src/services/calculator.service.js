@@ -189,7 +189,7 @@ class CalculatorService {
    * PPF Calculator
    */
   calculatePPF(inputs) {
-    const { annualDeposit, years = 15 } = inputs;
+    const { annualDeposit, years = 15, interestRate = 7.1 } = inputs;
     
     // Validate years (must be 15 or in multiples of 5 after 15)
     if (years < 15) {
@@ -200,7 +200,7 @@ class CalculatorService {
       throw ApiError.validationError('PPF can be extended only in blocks of 5 years after 15 years');
     }
     
-    return formulas.calculatePPF(annualDeposit, years);
+    return formulas.calculatePPF(annualDeposit, years, interestRate);
   }
 
   /** EPF Calculator */
