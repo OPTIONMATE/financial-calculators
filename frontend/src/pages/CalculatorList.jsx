@@ -1,7 +1,9 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { useCalculatorSearch } from '../hooks/useCalculatorSearch';
 import CalculatorCard from '../components/CalculatorCard';
 import SearchBar from '../components/SearchBar';
+import Navbar from '../components/Navbar';
 
 /**
  * Calculator List Page
@@ -17,64 +19,68 @@ const CalculatorList = () => {
   } = useCalculatorSearch();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl text-gray-900">
-                Financial Calculators
-              </h1>
-              <p className="text-gray-500 mt-2 text-sm">
-                Calculate investment returns and financial planning metrics
-              </p>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-neutral-50">
+      {/* Navbar */}
+      <Navbar calculatorCount={filteredCalculators.length} />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Page Title */}
+        
         {/* Search Section */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-          <div className="space-y-4">
+        <motion.div 
+          className="bg-white rounded-2xl shadow-soft border border-neutral-200 p-8 mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <div className="space-y-5">
             {/* Search Bar */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-neutral-900 mb-3">
                 Search Calculators
               </label>
               <SearchBar
                 value={searchTerm}
                 onChange={setSearchTerm}
-                placeholder="Search by name, keywords..."
+                placeholder="Search by name, category, or keywords..."
               />
             </div>
 
             {/* Active Search Info */}
             {hasActiveSearch && (
-              <div className="flex items-center justify-between pt-2 border-t border-gray-200">
-                <p className="text-sm text-gray-600">
-                  Showing {filteredCalculators.length} calculator(s) matching "{searchTerm}"
+              <motion.div 
+                className="flex items-center justify-between pt-4 border-t border-neutral-200"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                transition={{ duration: 0.3 }}
+              >
+                <p className="text-sm text-neutral-700 font-medium">
+                  Found <span className="text-blue-600 font-semibold">{filteredCalculators.length}</span> calculator(s) matching <span className="text-emerald-600 font-semibold">"{searchTerm}"</span>
                 </p>
                 <button
                   onClick={resetSearch}
-                  className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+                  className="text-sm text-teal-600 hover:text-teal-700 font-semibold transition-colors"
                 >
                   Clear Search
                 </button>
-              </div>
+              </motion.div>
             )}
           </div>
-        </div>
+        </motion.div>
 
         {/* Results */}
         {filteredCalculators.length === 0 ? (
           // Empty State
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center">
-            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <motion.div 
+            className="bg-white rounded-2xl shadow-soft border border-neutral-200 p-16 text-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className="w-20 h-20 bg-gradient-to-br from-blue-100 via-teal-100 to-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <svg 
-                className="w-12 h-12 text-gray-400" 
+                className="w-10 h-10 text-teal-600" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -83,39 +89,60 @@ const CalculatorList = () => {
                   strokeLinecap="round" 
                   strokeLinejoin="round" 
                   strokeWidth={2} 
-                  d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
                 />
               </svg>
             </div>
-            <h3 className="text-base text-gray-800 mb-2">
+            <h3 className="text-xl font-semibold text-neutral-900 mb-2">
               No calculators found
             </h3>
-            <p className="text-gray-500 mb-4 text-sm">
-              Try adjusting your search term
+            <p className="text-neutral-600 mb-6 text-sm max-w-sm mx-auto">
+              We couldn't find any calculators matching your search. Try different keywords or browse all calculators.
             </p>
             <button
               onClick={resetSearch}
-              className="text-gray-700 text-sm"
+              className="inline-flex items-center px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-teal-600 text-white font-medium hover:from-blue-700 hover:to-teal-700 transition-all shadow-sm hover:shadow-md"
             >
-              Clear search
+              Clear Search
             </button>
-          </div>
+          </motion.div>
         ) : (
           // Calculator Grid
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCalculators.map((calculator) => (
-              <CalculatorCard key={calculator.id} calculator={calculator} />
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            {filteredCalculators.map((calculator, index) => (
+              <motion.div
+                key={calculator.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  duration: 0.4, 
+                  delay: 0.05 * index,
+                  ease: [0.19, 1, 0.22, 1]
+                }}
+              >
+                <CalculatorCard calculator={calculator} />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
 
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <p className="text-center text-gray-500 text-sm">
-            © 2024 Calculator Platform. All calculations are estimates and should not be considered as financial advice.
+      <footer className="bg-white border-t border-neutral-200 mt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="flex items-center justify-center space-x-2 mb-3">
+            <div className="h-1 w-1 rounded-full bg-blue-500" />
+            <div className="h-1 w-1 rounded-full bg-teal-500" />
+            <div className="h-1 w-1 rounded-full bg-emerald-500" />
+          </div>
+          <p className="text-center text-neutral-600 text-sm">
+            © 2024 Financial Calculators. All calculations are estimates and should not be considered as financial advice.
           </p>
         </div>
       </footer>

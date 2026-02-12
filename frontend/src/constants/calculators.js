@@ -21,6 +21,7 @@ export const CALCULATORS = [
         placeholder: '25000',
         defaultValue: 25000,
         min: 500,
+        max: 10000000,
         step: 500,
         prefix: '₹',
         helpText: 'Amount you invest every month'
@@ -44,6 +45,7 @@ export const CALCULATORS = [
         placeholder: '10',
         defaultValue: 10,
         min: 3,
+        max: 50,
         step: 1,
         suffix: 'Yr'
       }
@@ -955,6 +957,7 @@ export const CALCULATORS = [
     icon: '🏠',
     color: 'bg-blue-700',
     category: 'Loans',
+    renderMode: 'slider',
     fields: [
       {
         name: 'loanAmount',
@@ -1004,6 +1007,7 @@ export const CALCULATORS = [
     icon: '🚗',
     color: 'bg-gray-700',
     category: 'Loans',
+    renderMode: 'slider',
     fields: [
       {
         name: 'loanAmount',
@@ -1053,6 +1057,7 @@ export const CALCULATORS = [
     icon: '⚖️',
     color: 'bg-purple-700',
     category: 'Loans',
+    renderMode: 'slider',
     fields: [
       {
         name: 'principal',
@@ -1117,6 +1122,7 @@ export const CALCULATORS = [
     icon: '🧮',
     color: 'bg-slate-500',
     category: 'Interest',
+    renderMode: 'slider',
     fields: [
       {
         name: 'principal',
@@ -1165,6 +1171,7 @@ export const CALCULATORS = [
     icon: '📊',
     color: 'bg-zinc-500',
     category: 'Interest',
+    renderMode: 'slider',
     fields: [
       {
         name: 'principal',
@@ -1227,6 +1234,7 @@ export const CALCULATORS = [
     icon: '💰',
     color: 'bg-green-700',
     category: 'Salary',
+    renderMode: 'slider',
     fields: [
       {
         name: 'ctc',
@@ -1323,12 +1331,14 @@ export const CALCULATORS = [
     icon: '📋',
     color: 'bg-orange-700',
     category: 'Tax',
+    renderMode: 'slider',
     fields: [
       {
         name: 'annualIncome',
         label: 'Annual Income',
         type: 'number',
         placeholder: '1000000',
+        defaultValue: 1000000,
         min: 0,
         max: 100000000,
         step: 10000,
@@ -1361,6 +1371,7 @@ export const CALCULATORS = [
     icon: '🏘️',
     color: 'bg-sky-700',
     category: 'Tax',
+    renderMode: 'slider',
     fields: [
       {
         name: 'basicSalary',
@@ -1425,6 +1436,7 @@ export const CALCULATORS = [
     icon: '🎁',
     color: 'bg-purple-600',
     category: 'Salary',
+    renderMode: 'slider',
     fields: [
       {
         name: 'lastSalary',
@@ -1472,12 +1484,14 @@ export const CALCULATORS = [
     icon: '📊',
     color: 'bg-indigo-700',
     category: 'Tax',
+    renderMode: 'slider',
     fields: [
       {
         name: 'annualIncome',
         label: 'Annual Income',
         type: 'number',
         placeholder: '1200000',
+        defaultValue: 1200000,
         min: 0,
         max: 100000000,
         step: 10000,
@@ -1488,6 +1502,7 @@ export const CALCULATORS = [
         label: 'Standard Deduction',
         type: 'number',
         placeholder: '50000',
+        defaultValue: 50000,
         min: 0,
         max: 100000,
         step: 1000,
@@ -1499,6 +1514,7 @@ export const CALCULATORS = [
         label: 'Other Deductions',
         type: 'number',
         placeholder: '150000',
+        defaultValue: 150000,
         min: 0,
         max: 10000000,
         step: 10000,
@@ -1522,6 +1538,7 @@ export const CALCULATORS = [
     icon: '🧾',
     color: 'bg-red-600',
     category: 'Business',
+    renderMode: 'slider',
     fields: [
       {
         name: 'amount',
@@ -1563,6 +1580,7 @@ export const CALCULATORS = [
     icon: '📉',
     color: 'bg-blue-800',
     category: 'Trading',
+    renderMode: 'slider',
     fields: [
       {
         name: 'segment',
@@ -1640,12 +1658,14 @@ export const CALCULATORS = [
     icon: '📊',
     color: 'bg-violet-600',
     category: 'Trading',
+    renderMode: 'slider',
     fields: [
       {
         name: 'stockPrice',
         label: 'Stock Price',
         type: 'number',
         placeholder: '1000',
+        defaultValue: 1000,
         min: 0.01,
         max: 1000000,
         step: 0.01,
@@ -1656,6 +1676,7 @@ export const CALCULATORS = [
         label: 'Quantity',
         type: 'number',
         placeholder: '100',
+        defaultValue: 100,
         min: 1,
         max: 1000000,
         step: 1
@@ -1665,6 +1686,7 @@ export const CALCULATORS = [
         label: 'Leverage',
         type: 'number',
         placeholder: '5',
+        defaultValue: 5,
         min: 1,
         max: 20,
         step: 1,
@@ -1688,6 +1710,7 @@ export const CALCULATORS = [
     icon: '📉',
     color: 'bg-orange-600',
     category: 'Utility',
+    renderMode: 'slider',
     fields: [
       {
         name: 'currentAmount',
@@ -1736,6 +1759,7 @@ export const CALCULATORS = [
     icon: '📊',
     color: 'bg-slate-600',
     category: 'Trading',
+    renderMode: 'slider',
     fields: [
       {
         name: 'price1',
@@ -1786,6 +1810,7 @@ export const CALCULATORS = [
         label: 'Buy price (Share 3)',
         type: 'number',
         placeholder: '0',
+        defaultValue: 0,
         min: 0.01,
         max: 1000000,
         step: 0.01,
@@ -1797,6 +1822,7 @@ export const CALCULATORS = [
         label: 'Quantity (Share 3)',
         type: 'number',
         placeholder: '0',
+        defaultValue: 0,
         min: 1,
         max: 1000000,
         step: 1,
@@ -1816,6 +1842,7 @@ export const CALCULATORS = [
     icon: '📈',
     color: 'bg-emerald-700',
     category: 'Investment',
+    renderMode: 'slider',
     fields: [
       {
         name: 'startDate',
@@ -1873,12 +1900,14 @@ export const CALCULATORS = [
     icon: '🏦',
     color: 'bg-blue-800',
     category: 'Loans',
+    renderMode: 'slider',
     fields: [
       {
         name: 'monthlyIncome',
         label: 'Monthly Income',
         type: 'number',
         placeholder: '80000',
+        defaultValue: 80000,
         min: 1000,
         max: 10000000,
         step: 1000,
@@ -1889,6 +1918,7 @@ export const CALCULATORS = [
         label: 'Existing EMIs',
         type: 'number',
         placeholder: '5000',
+        defaultValue: 0,
         min: 0,
         max: 10000000,
         step: 500,
@@ -1900,6 +1930,7 @@ export const CALCULATORS = [
         label: 'Interest Rate',
         type: 'number',
         placeholder: '9',
+        defaultValue: 9,
         min: 1,
         max: 30,
         step: 0.1,
@@ -1910,6 +1941,7 @@ export const CALCULATORS = [
         label: 'Loan Tenure',
         type: 'number',
         placeholder: '20',
+        defaultValue: 20,
         min: 1,
         max: 30,
         step: 1,
@@ -1920,6 +1952,7 @@ export const CALCULATORS = [
         label: 'Max EMI Ratio',
         type: 'number',
         placeholder: '50',
+        defaultValue: 50,
         min: 30,
         max: 70,
         step: 1,

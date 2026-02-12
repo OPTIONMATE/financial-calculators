@@ -5,11 +5,11 @@
 
 /**
  * Calculate SIP (Systematic Investment Plan)
- * Formula: M = P × ((1 + i)^n - 1) / i) × (1 + i)
+ * Formula: M = P × ((1 + i)^n - 1) / i
  * where M = Maturity amount, P = Monthly investment, i = Monthly rate, n = Total months
  */
 const calculateSIP = (monthlyInvestment, annualRate, years) => {
-  const monthlyRate = Math.pow(1 + annualRate / 100, 1 / 12) - 1;
+  const monthlyRate = (annualRate / 100) / 12;
   const months = years * 12;
   
   // Total investment
@@ -21,7 +21,7 @@ const calculateSIP = (monthlyInvestment, annualRate, years) => {
     maturityAmount = totalInvestment;
   } else {
     maturityAmount = monthlyInvestment * 
-      (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate));
+      ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
   }
   
   // Wealth gained

@@ -2,28 +2,36 @@ import { useState, useEffect, useCallback } from 'react';
 
 /**
  * SIP Calculation Logic (Frontend)
- * Formula: M = P × ((1 + i)^n - 1) / i) × (1 + i)
- * where M = Maturity amount, P = Monthly investment, i = Monthly rate, n = Total months
+ * Standard formula used by major platforms (Annuity Due):
+ * M = P × [((1 + i)^n − 1) / i] × (1 + i)
+ * where:
+ * M = Maturity amount
+ * P = Monthly investment
+ * i = Monthly interest rate
+ * n = Total number of months
  */
 const calculateSIPFormula = (monthlyInvestment, annualRate, years) => {
   const monthlyRate = (annualRate / 100) / 12;
   const months = years * 12;
-  
+
   // Total investment
   const totalInvestment = monthlyInvestment * months;
-  
+
   // Future value calculation
   let maturityAmount;
+
   if (monthlyRate === 0) {
     maturityAmount = totalInvestment;
   } else {
-    maturityAmount = monthlyInvestment * 
-      (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate));
+    maturityAmount =
+      monthlyInvestment *
+      ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) *
+      (1 + monthlyRate);
   }
-  
+
   // Wealth gained
   const wealthGained = maturityAmount - totalInvestment;
-  
+
   return {
     totalInvestment: Math.round(totalInvestment),
     wealthGained: Math.round(wealthGained),
@@ -35,7 +43,11 @@ const calculateSIPFormula = (monthlyInvestment, annualRate, years) => {
  * Hook for SIP Calculator
  * Handles real-time calculation on slider change
  */
-export const useSIPCalculator = (initialMonthly = 25000, initialRate = 12, initialYears = 10) => {
+export const useSIPCalculator = (
+  initialMonthly = 25000,
+  initialRate = 12,
+  initialYears = 10
+) => {
   const [monthlyInvestment, setMonthlyInvestment] = useState(initialMonthly);
   const [annualRate, setAnnualRate] = useState(initialRate);
   const [years, setYears] = useState(initialYears);
@@ -43,14 +55,18 @@ export const useSIPCalculator = (initialMonthly = 25000, initialRate = 12, initi
 
   // Calculate whenever inputs change
   useEffect(() => {
-    const calculation = calculateSIPFormula(monthlyInvestment, annualRate, years);
+    const calculation = calculateSIPFormula(
+      monthlyInvestment,
+      annualRate,
+      years
+    );
     setResult(calculation);
   }, [monthlyInvestment, annualRate, years]);
 
   // Handler for input changes
   const handleInputChange = useCallback((name, value) => {
     const numValue = parseFloat(value);
-    
+
     switch (name) {
       case 'monthlyInvestment':
         setMonthlyInvestment(Math.max(100, Math.min(10000000, numValue)));
@@ -79,7 +95,7 @@ export const useSIPCalculator = (initialMonthly = 25000, initialRate = 12, initi
     annualRate,
     years,
     result,
-    
+
     // Methods
     handleInputChange,
     setMonthlyInvestment,

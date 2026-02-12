@@ -16,7 +16,7 @@ export const calculateSIP = (monthlyInvestment, annualRate, years) => {
     maturityAmount = totalInvestment;
   } else {
     maturityAmount = monthlyInvestment * 
-      (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate));
+      ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
   }
   
   const wealthGained = maturityAmount - totalInvestment;
@@ -726,6 +726,84 @@ export const calculateStockAverage = (price1, quantity1, price2, quantity2, pric
 };
 
 /**
+ * Calculate XIRR (Extended Internal Rate of Return)
+ */
+export const calculateXIRR = (startDate, frequency, recurringAmount, maturityDate, maturityAmount) => {
+  // Generate cashflow dates based on frequency
+  const cashflows = [];
+  const start = new Date(startDate);
+  const maturity = new Date(maturityDate);
+  
+  // Frequency mapping in days
+  const frequencyDays = {
+    '14-days': 14,
+    'monthly': 30,
+    'quarterly': 90,
+    'half-yearly': 182,
+    'yearly': 365
+  };
+  
+  const dayIncrement = frequencyDays[frequency] || 30;
+  
+  // Generate investment cashflows (negative values)
+  let currentDate = new Date(start);
+  while (currentDate <= maturity) {
+    cashflows.push({
+      date: new Date(currentDate),
+      amount: -recurringAmount
+    });
+    currentDate.setDate(currentDate.getDate() + dayIncrement);
+  }
+  
+  // Add maturity cashflow (positive value)
+  cashflows.push({
+    date: new Date(maturity),
+    amount: maturityAmount
+  });
+  
+  // XIRR calculation using Newton-Raphson method
+  const calculateXIRRValue = (rate, cashflows) => {
+    return cashflows.reduce((sum, cf) => {
+      const days = (cf.date - cashflows[0].date) / (1000 * 60 * 60 * 24);
+      const years = days / 365;
+      return sum + cf.amount / Math.pow(1 + rate, years);
+    }, 0);
+  };
+  
+  const calculateDerivative = (rate, cashflows) => {
+    return cashflows.reduce((sum, cf) => {
+      const days = (cf.date - cashflows[0].date) / (1000 * 60 * 60 * 24);
+      const years = days / 365;
+      return sum - (years * cf.amount) / Math.pow(1 + rate, years + 1);
+    }, 0);
+  };
+  
+  // Newton-Raphson iteration
+  let guess = 0.1; // Initial guess of 10%
+  let iteration = 0;
+  const maxIterations = 100;
+  const tolerance = 0.0000001;
+  
+  while (iteration < maxIterations) {
+    const value = calculateXIRRValue(guess, cashflows);
+    const derivative = calculateDerivative(guess, cashflows);
+    
+    if (Math.abs(value) < tolerance) {
+      break;
+    }
+    
+    guess = guess - value / derivative;
+    iteration++;
+  }
+  
+  const xirr = guess * 100; // Convert to percentage
+  
+  return {
+    xirr: Math.round(xirr * 100) / 100
+  };
+};
+
+/**
  * Calculate Loan Eligibility
  */
 export const calculateLoanEligibility = (monthlyIncome, existingEmi, annualRate, years, maxEmiRatio) => {
@@ -788,5 +866,6 @@ export const calculatorFunctions = {
   brokerage: calculateBrokerage,
   margin: calculateMargin,
   'stock-average': calculateStockAverage,
+  xirr: calculateXIRR,
   'loan-eligibility': calculateLoanEligibility
 };
