@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const passport = require('./config/passport');
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
 const { errorHandler, notFound } = require('./utils/errorHandler');
@@ -17,6 +18,9 @@ app.use(
     credentials: true
   })
 );
+
+// Initialize Passport for OAuth
+app.use(passport.initialize());
 
 app.get('/api/health', (req, res) => {
   res.status(200).json({ success: true, message: 'API is healthy' });

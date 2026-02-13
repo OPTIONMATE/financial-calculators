@@ -113,9 +113,47 @@ const getMe = asyncHandler(async (req, res) => {
   });
 });
 
+/**
+ * Google OAuth Callback Handler
+ * Called by Passport after successful Google authentication
+ * Generates JWT, sets HTTP-only cookie, and redirects to frontend
+ */
+const googleCallback = asyncHandler(async (req, res) => {
+  try {
+    // Passport populates req.user with authenticated user
+    if (!req.user) {
+      return res.redirect(`${process.env.FRONTEND_URL}/login?error=authentication_failed`);
+    }
+
+    // Generate JWT token
+    const token = signToken(req.user._id);
+
+    // Set JWT in HTTP-only cookie
+    sendToken(res, token);
+
+    // Redirect to frontend home page with success
+    // Frontend will automatically load user from /auth/me endpoint
+    return res.redirect(`${process.env.FRONTEND_URL}/home`);
+  } catch (error) {
+    console.error('Google OAuth callback error:', error);
+    return res.redirect(`${process.env.FRONTEND_URL}/login?error=server_error`);
+  }
+});
+
+/**
+ * Google OAuth Error Handler
+ * Handles OAuth failures and redirects to login page
+ */
+const googleErrorHandler = (error, req, res, next) => {
+  console.error('Google OAuth error:', error);
+  res.redirect(`${process.env.FRONTEND_URL}/login?error=${encodeURIComponent(error.message)}`);
+};
+
 module.exports = {
   register,
   login,
   logout,
-  getMe
+  getMe,
+  googleCallback,
+  googleErrorHandler
 };
