@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { isEmailValid, isPasswordValid, isRequired } from '../utils/validators';
-import Navbar from '../components/Navbar';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -39,19 +38,17 @@ const Register = () => {
 
     try {
       await registerUser(form);
-      navigate('/');
+      navigate('/home');
     } catch (err) {
       // handled in context
     }
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50">
-      <Navbar />
-      <div className="flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-soft border border-neutral-200 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-blue-50 to-emerald-50 flex items-center justify-center px-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-soft border border-neutral-200 p-8">
         <h1 className="text-2xl font-bold text-neutral-900 mb-2">Create account</h1>
-        <p className="text-sm text-neutral-600 mb-6">Sign up to access your profile</p>
+        <p className="text-sm text-neutral-600 mb-6">Sign up to access financial calculators</p>
 
         {(formError || error) && (
           <div className="mb-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-2">
@@ -103,13 +100,12 @@ const Register = () => {
           </button>
         </form>
 
-          <p className="text-sm text-neutral-600 mt-6">
-            Already have an account?{' '}
-            <Link to="/login" className="text-primary-600 font-semibold hover:text-primary-700">
-              Log in
-            </Link>
-          </p>
-        </div>
+        <p className="text-sm text-neutral-600 mt-6 text-center">
+          Already have an account?{' '}
+          <Link to="/login" className="text-primary-600 font-semibold hover:text-primary-700">
+            Log in
+          </Link>
+        </p>
       </div>
     </div>
   );

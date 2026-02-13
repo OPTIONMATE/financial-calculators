@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { isEmailValid, isPasswordValid, isRequired } from '../utils/validators';
-import Navbar from '../components/Navbar';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -39,19 +38,17 @@ const Login = () => {
 
     try {
       await loginUser(form);
-      navigate('/');
+      navigate('/home');
     } catch (err) {
       // handled in context
     }
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50">
-      <Navbar />
-      <div className="flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-soft border border-neutral-200 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-blue-50 to-emerald-50 flex items-center justify-center px-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-soft border border-neutral-200 p-8">
         <h1 className="text-2xl font-bold text-neutral-900 mb-2">Welcome back</h1>
-        <p className="text-sm text-neutral-600 mb-6">Login to access your profile</p>
+        <p className="text-sm text-neutral-600 mb-6">Login to access your financial calculators</p>
 
         {(formError || error) && (
           <div className="mb-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-2">
@@ -92,16 +89,16 @@ const Login = () => {
           </button>
         </form>
 
-          <p className="text-sm text-neutral-600 mt-6">
-            Do not have an account?{' '}
-            <Link to="/register" className="text-primary-600 font-semibold hover:text-primary-700">
-              Create one
-            </Link>
-          </p>
-        </div>
+        <p className="text-sm text-neutral-600 mt-6 text-center">
+          Do not have an account?{' '}
+          <Link to="/register" className="text-primary-600 font-semibold hover:text-primary-700">
+            Create one
+          </Link>
+        </p>
       </div>
     </div>
   );
 };
 
 export default Login;
+
