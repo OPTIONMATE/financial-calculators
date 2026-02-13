@@ -1,63 +1,31 @@
 const express = require('express');
 const cors = require('cors');
-const calculatorRoutes = require('./routes/calculator.routes');
-const { errorHandler, notFound } = require('./middlewares/error.middleware');
-const calculatorController = require('./controllers/calculator.controller');
+const cookieParser = require('cookie-parser');
+const authRoutes = require('./routes/auth.routes');
+const userRoutes = require('./routes/user.routes');
+const { errorHandler, notFound } = require('./utils/errorHandler');
 
 const app = express();
 
-/**
- * Middleware Setup
- */
-// Enable CORS for frontend
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-  credentials: true
-}));
-
-// Parse JSON request bodies
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-// Request logging in development
-if (process.env.NODE_ENV === 'development') {
-  app.use((req, res, next) => {
-    console.log(`${req.method} ${req.path}`);
-    next();
-  });
-}
+const allowedOrigin = process.env.FRONTEND_URL || 'http://localhost:5173';
+app.use(
+  cors({
+    origin: allowedOrigin,
+    credentials: true
+  })
+);
 
-/**
- * Routes
- */
-// Health check
-app.get('/api/health', calculatorController.healthCheck);
-
-// Calculator routes
-app.use('/api/calculators', calculatorRoutes);
-
-// Root endpoint
-app.get('/', (req, res) => {
-  res.json({
-    success: true,
-    message: 'Calculator Platform API',
-    version: '1.0.0',
-    endpoints: {
-      health: '/api/health',
-      calculate: 'POST /api/calculators/:type/calculate',
-      history: 'GET /api/calculators/:type/history',
-      stats: 'GET /api/calculators/stats'
-    }
-  });
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ success: true, message: 'API is healthy' });
 });
 
-/**
- * Error Handling
- */
-// 404 handler
-app.use(notFound);
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 
-// Global error handler (must be last)
+app.use(notFound);
 app.use(errorHandler);
 
 module.exports = app;

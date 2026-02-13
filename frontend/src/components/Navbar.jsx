@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useAuth } from '../hooks/useAuth';
 
 /**
  * Navbar Component
@@ -9,6 +10,7 @@ import { motion } from 'framer-motion';
 const Navbar = ({ calculatorCount }) => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const { isAuthenticated, logoutUser, loading } = useAuth();
 
   return (
     <nav className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-neutral-200 shadow-sm">
@@ -55,6 +57,41 @@ const Navbar = ({ calculatorCount }) => {
                 <span className="text-xs font-semibold text-neutral-700">
                   {calculatorCount} {calculatorCount === 1 ? 'Calculator' : 'Calculators'}
                 </span>
+              </div>
+            )}
+
+            {/* Auth Links */}
+            {!loading && !isAuthenticated && (
+              <div className="hidden sm:flex items-center space-x-3">
+                <Link
+                  to="/login"
+                  className="text-sm font-semibold text-neutral-700 hover:text-neutral-900 transition-colors"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="px-4 py-2 rounded-xl bg-primary-600 text-white text-sm font-semibold hover:bg-primary-700 transition-colors"
+                >
+                  Register
+                </Link>
+              </div>
+            )}
+
+            {!loading && isAuthenticated && (
+              <div className="hidden sm:flex items-center space-x-3">
+                <Link
+                  to="/profile"
+                  className="text-sm font-semibold text-neutral-700 hover:text-neutral-900 transition-colors"
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={logoutUser}
+                  className="px-4 py-2 rounded-xl bg-neutral-100 text-neutral-700 text-sm font-semibold hover:bg-neutral-200 transition-colors"
+                >
+                  Logout
+                </button>
               </div>
             )}
 
