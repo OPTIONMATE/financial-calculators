@@ -1,23 +1,33 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useAuth } from '../hooks/useAuth';
 
 /**
  * Navbar Component
  * Main navigation bar across all pages
+ * Only visible for authenticated users
  */
 const Navbar = ({ calculatorCount }) => {
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const isHomePage = location.pathname === '/home';
+  const isCalculatorPage = location.pathname === '/calculator';
+  const isProfilePage = location.pathname === '/profile';
+  const { isAuthenticated, logoutUser, loading } = useAuth();
+
+  // Only show navbar for authenticated users
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
-    <nav className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-neutral-200 shadow-sm">
+    <nav className="sticky top-0 z-10 bg-white/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo & Brand */}
-          <Link to="/" className="flex items-center space-x-3 group">
+          <Link to="/home" className="flex items-center space-x-3 group">
             <motion.div 
-              className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-teal-500 to-emerald-500 shadow-md"
+              className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-teal-500 to-emerald-500"
               whileHover={{ scale: 1.05, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
@@ -58,9 +68,35 @@ const Navbar = ({ calculatorCount }) => {
               </div>
             )}
 
+            {/* Navigation Links - Only for authenticated users */}
+            <div className="hidden sm:flex items-center space-x-3">
+              {!isCalculatorPage && (
+                <Link
+                  to="/calculator"
+                  className="text-sm font-semibold text-neutral-700 hover:text-neutral-900 transition-colors"
+                >
+                  Calculators
+                </Link>
+              )}
+              {!isProfilePage && (
+                <Link
+                  to="/profile"
+                  className="text-sm font-semibold text-neutral-700 hover:text-neutral-900 transition-colors"
+                >
+                  Profile
+                </Link>
+              )}
+              <button
+                onClick={logoutUser}
+                className="px-4 py-2 rounded-xl bg-neutral-100 text-neutral-700 text-sm font-semibold hover:bg-neutral-200 transition-colors"
+              >
+                Logout
+              </button>
+            </div>
+
             {/* Home Button (when not on home page) */}
             {!isHomePage && (
-              <Link to="/">
+              <Link to="/home">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
