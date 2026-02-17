@@ -21,13 +21,13 @@ const Navbar = ({ calculatorCount }) => {
   }
 
   return (
-    <nav className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-neutral-200 shadow-sm">
+    <nav className="sticky top-0 z-10 bg-white/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo & Brand */}
           <Link to="/home" className="flex items-center space-x-3 group">
             <motion.div 
-              className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-teal-500 to-emerald-500 shadow-md"
+              className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-teal-500 to-emerald-500"
               whileHover={{ scale: 1.05, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}

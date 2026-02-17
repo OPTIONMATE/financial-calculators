@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  font-family: 'Host Grotesk', sans-serif;
+}
+
 @layer base {
   body {
     @apply font-sans antialiased;

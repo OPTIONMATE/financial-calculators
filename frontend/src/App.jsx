@@ -24,25 +24,25 @@ function App() {
           <Route
             path="/home"
             element={
-              <ProtectedRoute>
+              // <ProtectedRoute>
                 <Home />
-              </ProtectedRoute>
+              // {/* </ProtectedRoute> */}
             }
           />
           <Route
             path="/calculator"
             element={
-              <ProtectedRoute>
+              // <ProtectedRoute>
                 <Calculator />
-              </ProtectedRoute>
+              // </ProtectedRoute>
             }
           />
           <Route
             path="/calculator/:id"
             element={
-              <ProtectedRoute>
+              // <ProtectedRoute>
                 <CalculatorDetail />
-              </ProtectedRoute>
+              // </ProtectedRoute>
             }
           />
           <Route
